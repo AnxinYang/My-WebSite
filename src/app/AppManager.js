@@ -1,32 +1,40 @@
 /**
  * Created by Anxin Yang on 3/2/2018.
  */
-export default class App{
-    init(callback){
-        window.app=this;
+import Main from './components/general/Main'
+import React from 'react';
+class AppManager{
+    constructor(){
         this.data = {};
         this.eventList = {};
-        if(callback!==undefined){
-            callback();
-        }
+        this.styleStore = {};
+        this.componentBlueprint = {
+            'Main': Main
+        };
+    }
+    init(callback){
+        window.appManager = this;
+        if(callback)callback();
     }
     getValue(key){
         if(key===undefined){
             return undefined;
         }
-        return this.data[key];
+        return this[key];
     }
     setValue(key,data){
-        this.data[key] = data;
+        this[key] = data;
     }
 
+    getComponent(name, props){
+        return React.createElement(this.componentBlueprint[name], props);
+    }
 
     listenEvent(listener, eventName, response){
-        let event =  this.eventList[eventName];
-        if(event===undefined){
-            this.events[eventName] = {};
+        if(this.eventList[eventName]===undefined){
+            this.eventList[eventName] = {};
         }
-
+        let event =  this.eventList[eventName];
         let newListener = {
             response: response
         };
@@ -48,3 +56,5 @@ export default class App{
         }
     }
 }
+const am = new AppManager();
+export default am;
