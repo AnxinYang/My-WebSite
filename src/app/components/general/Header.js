@@ -1,8 +1,13 @@
 /**
  * Created by Anxin Yang on 3/3/2018.
  */
-export default class Header{
-    render(){
-        <div>Header</div>
+import React, {Component} from 'react';
+export default class Header extends Component{
+    render() {
+        return (
+            <div>
+                
+            </div>
+        )
     }
 }

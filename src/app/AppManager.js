@@ -1,7 +1,8 @@
 /**
  * Created by Anxin Yang on 3/2/2018.
  */
-import Main from './components/general/Main'
+import Main from './components/general/Main';
+import Header from './components/general/Header';
 import React from 'react';
 class AppManager{
     constructor(){
@@ -9,7 +10,8 @@ class AppManager{
         this.eventList = {};
         this.styleStore = {};
         this.componentBlueprint = {
-            'Main': Main
+            'Main': Main,
+            'Header': Header
         };
     }
     init(callback){

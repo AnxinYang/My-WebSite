@@ -7,6 +7,8 @@ export default class Main extends Component{
         appManager.triggerEvent('loadView');
     }
     render(){
-       return <div onClick={this.test}>Main</div>
+       return (<div onClick={this.test}>
+           {appManager.getComponent('Header')}
+       </div>)
     }
 }
