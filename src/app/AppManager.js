@@ -57,6 +57,10 @@ class AppManager{
             }
         }
     }
+    getId(){
+        var seed = new Date();
+        var id = 'id_'+ Math.random()*10000 + '_' + seed;
+    }
 }
 const am = new AppManager();
 export default am;
