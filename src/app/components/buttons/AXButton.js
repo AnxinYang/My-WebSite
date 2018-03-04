@@ -10,7 +10,7 @@ export default class AXButton extends Component{
             toggleMode: this.props.toggleMode || false,
             disabled: this.props.disabled || false,
             text: this.props.text || 'Button',
-            isActivated: this.props.isActivated || true
+            isActivated: false
         };
 
         this.id = this.props.name;
@@ -25,13 +25,11 @@ export default class AXButton extends Component{
     }
 
     componentWillMount(){
-        this.setStyle('normal');
+        this.setStyle(this.state);
     }
     componentWillUpdate(){
-
     }
     componentDidMount(){
-
     }
 
     handleMouseEvent(event){
@@ -39,32 +37,37 @@ export default class AXButton extends Component{
         if(handlers !== undefined){
             handlers[event].call(this);
         }
-        if(this.state.toggleMode === true){
-
+        var isActivated = this.state.isActivated;
+        if(this.state.toggleMode === true && event === 'click'){
+            isActivated = !this.state.isActivated;
         }
         var newState ={
             status: event,
             toggleMode: this.state.toggleMode,
             disabled: this.state.disabled,
             text: this.props.text,
-            isActivated: this.props.isActivated
+            isActivated: isActivated
         };
-        this.setStyle(newState.status);
+        this.setStyle(newState);
         this.setState(newState);
     }
 
     setStyle(state){
-        var newStyleSet = this.styleSet[state];
+
+        var newStyleSet = this.styleSet[state.status];
+
+        if(state.toggleMode === true){
+            newStyleSet = state.isActivated?this.styleSet['activated']:this.styleSet['deactivated'];
+        }
+        
+
+        if(state.disabled === true){
+            newStyleSet = this.styleSet['disabled'];
+        }
 
         if(newStyleSet===undefined){
             newStyleSet = this.styleSet['normal'];
-        }
-
-        if(this.state.toggleMode === true){
-            newStyleSet = this.state.isActivated?this.styleSet['activated']:this.styleSet['deactivated'];
-        }
-        if(this.state.disabled === true){
-            newStyleSet = this.styleSet['disabled'];
+            this.style = {};
         }
 
         for(var key in newStyleSet){
