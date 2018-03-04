@@ -4,11 +4,14 @@
 const generalStyle = {
     body: {'fontFamily': 'Montserrat', 'overflow': 'hidden'},
     containerMain: {'width': '100vw', 'height': '100vh'},
+    headerContainer:{
+        display: 'flex',
+    },
     headerButtons: {
         'normal': {
             container: {
                 maxWidth: '120px',
-                minWidth: 'min-content',
+                minWidth: '120px',
                 textAlign: 'center',
                 transition: '0.3s',
                 color: 'black',
@@ -22,8 +25,8 @@ const generalStyle = {
         },
         mouseOver:{
             container: {
-                background: '#1e90ff',
-                color: 'white'
+                background: '#ced6e0',
+                color: '#f1f2f6'
             }
         },
         click: {

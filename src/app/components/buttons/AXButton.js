@@ -10,7 +10,7 @@ export default class AXButton extends Component{
             toggleMode: this.props.toggleMode || false,
             disabled: this.props.disabled || false,
             text: this.props.text || 'Button',
-            isActivated: false
+            isActivated: this.props.isActivated || false
         };
 
         this.id = this.props.name;
@@ -21,20 +21,21 @@ export default class AXButton extends Component{
         }else{
             this.styleSet = this.props.styleSet;
         }
-        this.style = Object.assign({},this.styleSet['normal']);
+        this.style = Object.assign({},this.styleSet[this.state.status]);
     }
 
     componentWillMount(){
         this.setStyle(this.state);
     }
     componentWillUpdate(){
+
     }
     componentDidMount(){
     }
 
     handleMouseEvent(event){
         var handlers = this.props.handlers;
-        if(handlers !== undefined){
+        if(handlers !== undefined && handlers[event] !== undefined){
             handlers[event].call(this);
         }
         var isActivated = this.state.isActivated;
@@ -59,7 +60,9 @@ export default class AXButton extends Component{
         if(state.toggleMode === true){
             newStyleSet = state.isActivated?this.styleSet['activated']:this.styleSet['deactivated'];
         }
-        
+        if(state.status === 'mouseOver'){
+            newStyleSet = this.styleSet[state.status];
+        }
 
         if(state.disabled === true){
             newStyleSet = this.styleSet['disabled'];
