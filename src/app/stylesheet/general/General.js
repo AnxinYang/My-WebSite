@@ -7,25 +7,35 @@ const generalStyle = {
     headerButtons: {
         'normal': {
             container: {
-                'height': '60px',
-                'maxHeight': '60px',
-                'maxWidth': '180px',
-                'minWidth': 'min-content',
-                'textAlign': 'center',
-                'transition': '0.3s',
-                'color': 'black',
+                maxWidth: '120px',
+                minWidth: 'min-content',
+                textAlign: 'center',
+                transition: '0.3s',
+                color: 'black',
+                cursor:'pointer',
+            },
+            innerText:{
+                display: 'block',
+                height: '100%',
+                padding: '1em 0 1em 0'
             }
         },
-        'mouseEnter':{
+        mouseOver:{
             container: {
-                'background': '#1e90ff',
-                'color': 'white'
+                background: '#1e90ff',
+                color: 'white'
             }
         },
-        'activated': {
+        click: {
             container: {
-                'background': '#1e90ff',
-                'color': 'white'
+                background: '#2f3542',
+                color: 'white'
+            }
+        },
+        activated: {
+            container: {
+                background: '#2f3542',
+                color: 'white'
             }
         }
     }

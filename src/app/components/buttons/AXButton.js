@@ -25,7 +25,7 @@ export default class AXButton extends Component{
     }
 
     componentWillMount(){
-        this.setStyle();
+        this.setStyle('normal');
     }
     componentWillUpdate(){
 
@@ -45,13 +45,12 @@ export default class AXButton extends Component{
             disabled: this.state.disabled,
             text: this.props.text
         };
+        this.setStyle(newState.status);
         this.setState(newState);
-        this.setStyle();
     }
 
-    setStyle(){
-        var status = this.state.status;
-        var newStyleSet = this.styleSet[status];
+    setStyle(state){
+        var newStyleSet = this.styleSet[state];
         if(newStyleSet===undefined){
             this.style = Object.assign({},this.styleSet['normal']);
             return;
@@ -68,6 +67,10 @@ export default class AXButton extends Component{
         return (
             <span
                 id={this.id+'_inner'}
+                onClick={()=> {this.handleMouseEvent('click')}}
+                onMouseEnter={()=>{this.handleMouseEvent('mouseEnter')}}
+                onMouseLeave={()=>{this.handleMouseEvent('mouseLeave')}}
+                onMouseOver={()=>{this.handleMouseEvent('mouseOver')}}
                 style = {this.style['innerText'] || {}}
             >{this.state.text}</span>
         )
@@ -77,10 +80,6 @@ export default class AXButton extends Component{
     render(){
         return (
             <div id={this.id}
-                 onClick={()=> {this.handleMouseEvent('click')}}
-                 onMouseEnter={()=>{this.handleMouseEvent('mouseEnter')}}
-                 onMouseLeave={()=>{this.handleMouseEvent('mouseLeave')}}
-                 onMouseOver={()=>{this.handleMouseEvent('mouseOver')}}
                  style={this.style['container'] || {}}>
                 {this.innerRender()}
             </div>
