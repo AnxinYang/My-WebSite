@@ -2,28 +2,34 @@
  * Created by Anxin Yang on 3/3/2018.
  */
 import React, {Component} from 'react';
-export default class Button extends Component{
+export default class AXButton extends Component{
     constructor(props){
         super(props);
         this.state = {
-            status: this.prop.status || 'normal',
+            status: this.props.status || 'normal',
             toggleMode: this.props.toggleMode || false,
             disabled: this.props.disabled || false,
             text: this.props.text || 'Button',
             isActivated: this.props.isActivated || true
         };
 
+        this.id = this.props.name;
         if(this.props.styleSet === undefined){
             this.styleSet = {
                 'normal': {}
             }
+        }else{
+            this.styleSet = this.props.styleSet;
         }
+        this.style = Object.assign({},this.styleSet['normal']);
     }
 
     componentWillMount(){
         this.setStyle();
     }
+    componentWillUpdate(){
 
+    }
     componentDidMount(){
 
     }
@@ -39,19 +45,22 @@ export default class Button extends Component{
             disabled: this.state.disabled,
             text: this.props.text
         };
-        if(this.props.handleClick!==undefined){
-            this.setState(newState);
-        }
+        this.setState(newState);
+        this.setStyle();
     }
 
     setStyle(){
         var status = this.state.status;
-        this.styleSet = this.props.styleSet[status];
-        if(this.state.toggleMode === true){
-            this.styleSet = this.state.isActivated?this.props.styleSet['activated']:this.props.styleSet['deactivated'];
+        var newStyleSet = this.styleSet[status];
+        if(newStyleSet===undefined){
+            this.style = Object.assign({},this.styleSet['normal']);
+            return;
         }
-        if(this.styleSet===undefined){
-            this.styleSet = this.props.styleSet['normal'];
+        if(this.state.toggleMode === true){
+            newStyleSet = this.state.isActivated?this.styleSet['activated']:this.styleSet['deactivated'];
+        }
+        for(var key in newStyleSet){
+            this.style[key] = Object.assign({},this.style[key], newStyleSet[key]);
         }
     }
 
@@ -59,11 +68,7 @@ export default class Button extends Component{
         return (
             <span
                 id={this.id+'_inner'}
-                onClick={()=> {this.handleMouseEvent('click')}}
-                onMouseEnter={()=>{this.handleMouseEvent('mouseEnter')}}
-                onMouseLeave={()=>{this.handleMouseEvent('mouseLeave')}}
-                onMouseOver={()=>{this.handleMouseEvent('mouseOver')}}
-                style = {this.styleSet['innerText']}
+                style = {this.style['innerText'] || {}}
             >{this.state.text}</span>
         )
     }
@@ -71,7 +76,12 @@ export default class Button extends Component{
     //Do Not Override this method
     render(){
         return (
-            <div id={this.id} style={this.styleSet['container']}>
+            <div id={this.id}
+                 onClick={()=> {this.handleMouseEvent('click')}}
+                 onMouseEnter={()=>{this.handleMouseEvent('mouseEnter')}}
+                 onMouseLeave={()=>{this.handleMouseEvent('mouseLeave')}}
+                 onMouseOver={()=>{this.handleMouseEvent('mouseOver')}}
+                 style={this.style['container'] || {}}>
                 {this.innerRender()}
             </div>
         )

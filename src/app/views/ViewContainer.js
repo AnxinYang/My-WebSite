@@ -13,7 +13,7 @@ export default class ViewContainer extends Component{
         };
     }
     componentDidMount(){
-        appManager.listenEvent(this,'loadView', this.loadView);
+        //appManager.listenEvent(this,'loadView', this.loadView);
     }
     loadView(options){
         if(this.isMounted) {

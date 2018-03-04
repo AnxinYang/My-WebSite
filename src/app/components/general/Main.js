@@ -3,12 +3,11 @@
  */
 import React, {Component} from 'react';
 export default class Main extends Component{
-    test(){
-        appManager.triggerEvent('loadView');
-    }
-    render(){
-       return (<div onClick={this.test}>
-           {appManager.getComponent('Header')}
-       </div>)
+    render() {
+        return (
+            <div>
+                {appManager.getComponent('Header')}
+            </div>
+        )
     }
 }

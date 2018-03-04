@@ -3,6 +3,7 @@
  */
 import Main from './components/general/Main';
 import Header from './components/general/Header';
+import AXButton from './components/buttons/AXButton';
 import React from 'react';
 class AppManager{
     constructor(){
@@ -11,7 +12,8 @@ class AppManager{
         this.styleStore = {};
         this.componentBlueprint = {
             'Main': Main,
-            'Header': Header
+            'Header': Header,
+            'AXButton': AXButton
         };
     }
     init(callback){
