@@ -57,8 +57,7 @@ export default class AXButton extends Component{
         var newStyleSet = this.styleSet[state];
 
         if(newStyleSet===undefined){
-            this.style = Object.assign({},this.styleSet['normal']);
-            return;
+            newStyleSet = this.styleSet['normal'];
         }
 
         if(this.state.toggleMode === true){

@@ -32,6 +32,12 @@ const generalStyle = {
                 color: 'white'
             }
         },
+        disabled:{
+            container: {
+                cursor: 'no-drop',
+                color: '#dfe4ea'
+            }
+        },
         activated: {
             container: {
                 background: '#2f3542',
