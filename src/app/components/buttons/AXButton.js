@@ -39,11 +39,15 @@ export default class AXButton extends Component{
         if(handlers !== undefined){
             handlers[event].call(this);
         }
+        if(this.state.toggleMode === true){
+
+        }
         var newState ={
             status: event,
             toggleMode: this.state.toggleMode,
             disabled: this.state.disabled,
-            text: this.props.text
+            text: this.props.text,
+            isActivated: this.props.isActivated
         };
         this.setStyle(newState.status);
         this.setState(newState);
@@ -51,13 +55,19 @@ export default class AXButton extends Component{
 
     setStyle(state){
         var newStyleSet = this.styleSet[state];
+
         if(newStyleSet===undefined){
             this.style = Object.assign({},this.styleSet['normal']);
             return;
         }
+
         if(this.state.toggleMode === true){
             newStyleSet = this.state.isActivated?this.styleSet['activated']:this.styleSet['deactivated'];
         }
+        if(this.state.disabled === true){
+            newStyleSet = this.styleSet['disabled'];
+        }
+
         for(var key in newStyleSet){
             this.style[key] = Object.assign({},this.style[key], newStyleSet[key]);
         }

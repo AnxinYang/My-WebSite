@@ -7,7 +7,7 @@ export default class Header extends Component{
     constructor(props){
         super(props);
         this.componentList = {
-            home: {'name':'home', 'blueprint':'AXButton', 'text':'Home', 'styleSet': styleStore.getStyle('headerButtons')}
+            home: {'name':'home', 'blueprint':'AXButton', 'text':'Home', 'disabled':true, 'styleSet': styleStore.getStyle('headerButtons')}
         };
     }
     renderChildren(){
