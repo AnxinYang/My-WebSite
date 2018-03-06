@@ -8,7 +8,7 @@ export default class LoadingBar extends Component{
     constructor(props){
         super(props);
         this.state={
-            fisrtLoop: true,
+            firstLoop: true,
             animateRun: true,
             rotate: rotateStart
         };
@@ -17,11 +17,11 @@ export default class LoadingBar extends Component{
     componentDidMount(){
         if(this.state.animateRun){
             var newState = {
-                rotate: rotateEnd
+                rotate: rotateStart
             };
             newState = Object.assign({},this.state,newState);
             var style = Object.assign({},this.style);
-            style.transform = 'rotate(' + this.state.rotate + 'deg)';
+            style.transform = 'rotate(' + newState.rotate + 'deg)';
             this.style = style
             this.setState(newState)
         }
@@ -30,13 +30,15 @@ export default class LoadingBar extends Component{
         if(this.state.animateRun){
             var rotate = this.state.rotate+3600;
             var newState = {
-                rotate: rotate
+                rotate: rotate,
+                firstLoop: false
             };
+            var delay = this.state.firstLoop?0:5000;
             newState = Object.assign({},this.state,newState);
             var style = Object.assign({},this.style);
-            style.transform = 'rotate(' + this.state.rotate + 'deg)';
+            style.transform = 'rotate(' + newState.rotate + 'deg)';
             this.style = style
-            this.setStateWithDelay(newState,5000);
+            this.setStateWithDelay(newState,delay);
         }
     }
     setStateWithDelay(newState, delay){
