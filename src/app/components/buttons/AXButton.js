@@ -10,7 +10,8 @@ export default class AXButton extends Component{
             toggleMode: this.props.toggleMode || false,
             disabled: this.props.disabled || false,
             text: this.props.text || 'Button',
-            isActivated: this.props.isActivated || false
+            isActivated: this.props.isActivated || false,
+            showDelay: this.props.showDelay || false
         };
 
         this.id = this.props.name;
@@ -30,12 +31,14 @@ export default class AXButton extends Component{
     componentWillReceiveProps(newProps){
         this.props = newProps;
         let newState = {
-            status: this.props.status || 'normal',
-            toggleMode: this.props.toggleMode || false,
-            disabled: this.props.disabled || false,
-            text: this.props.text || 'Button',
-            isActivated: this.props.isActivated || false
+            status: this.props.status,
+            toggleMode: this.props.toggleMode,
+            disabled: this.props.disabled,
+            text: this.props.text,
+            isActivated: this.props.isActivated,
+            showDelay: this.props.showDelay
         };
+
         this.setStyle(newState);
         this.setState(newState);
     }
@@ -43,6 +46,15 @@ export default class AXButton extends Component{
 
     }
     componentDidMount(){
+
+    }
+
+    setStateWithDelay(newState, delay){
+        var self = this;
+        setTimeout(function () {
+            self.setStyle(newState);
+            self.setState(newState);
+        },delay)
     }
 
     handleMouseEvent(event){
@@ -56,11 +68,9 @@ export default class AXButton extends Component{
         }
         var newState ={
             status: event,
-            toggleMode: this.state.toggleMode,
-            disabled: this.state.disabled,
-            text: this.props.text,
             isActivated: isActivated
         };
+        newState = Object.assign({},this.state,newState);
         this.setStyle(newState);
         this.setState(newState);
     }
@@ -80,9 +90,20 @@ export default class AXButton extends Component{
             newStyleSet = this.styleSet['disabled'];
         }
 
+
         if(newStyleSet===undefined){
             newStyleSet = this.styleSet['normal'];
             this.style = {};
+        }
+        if(state.showDelay > 0){
+            newStyleSet.container.opacity = 0;
+            var newState = {
+                showDelay: 0
+            };
+            newState = Object.assign({},this.state,newState);
+            this.setStateWithDelay(newState, state.showDelay);
+        }else {
+            newStyleSet.container.opacity = 1;
         }
 
         for(var key in newStyleSet){

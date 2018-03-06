@@ -33,23 +33,18 @@ export default class Header extends Component{
             },
             componentList: {
                 home: {
-                    'name': 'home',
                     'text': 'Home',
                 },
-                Tools: {
-                    'name': 'Tools',
+                tools: {
                     'text': 'Tools',
                 },
                 portfolio: {
-                    'name': 'portfolio',
                     'text': 'Portfolio',
                 },
                 resume: {
-                    'name': 'resume',
                     'text': 'Resume',
                 },
                 contact: {
-                    'name': 'contact',
                     'text': 'Contact',
                 }
             }
@@ -57,20 +52,31 @@ export default class Header extends Component{
         };
     }
 
-    componentDidMount(){
-        
+    componentDidUpdate(){
+        if(this.state.isInit === false){
+            this.setState(Object.assign({}, this.state, {isInit: true}));
+        }
     }
 
     renderChildren(){
         var renderList = [];
         var componentList = this.content.componentList;
         var applyToAll = this.content.applyTOAll;
+        var delay = 250;
+        var delayMultiplier = 1;
+
         for(var name in componentList){
             var component = componentList[name];
-            var key = {key:'header_'+component.name};
+            var key = {key:'header_'+name};
 
             var props = Object.assign({},applyToAll, component, key);
+            props.name = name;
             props.isActivated = (name === this.state.selectedItem);
+            props.showDelay = 0;
+
+            if(!this.state.isInit){
+                props.showDelay = delay*delayMultiplier++;
+            }
 
             var element = appManager.getComponent(props.blueprint, props);
             renderList.push(element);

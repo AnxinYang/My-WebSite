@@ -17,7 +17,7 @@ const generalStyle = {
                 maxWidth: '128px',
                 minWidth: '128px',
                 textAlign: 'center',
-                transition: '0.3s',
+                transition: '0.5s',
                 color: 'black',
                 cursor:'pointer',
             },
