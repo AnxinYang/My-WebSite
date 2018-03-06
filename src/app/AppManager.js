@@ -22,12 +22,15 @@ class AppManager{
         window.appManager = this;
         if(callback)callback();
     }
+
+    //DON'T USE UNLESS HAVE TO
     getValue(key){
         if(key===undefined){
             return undefined;
         }
         return this[key];
     }
+    //DON'T USE UNLESS HAVE TO
     setValue(key,data){
         this[key] = data;
     }
@@ -61,6 +64,8 @@ class AppManager{
             }
         }
     }
+    
+    //DON'T USE UNLESS HAVE TO
     getId(){
         var seed = new Date();
         var id = 'id_'+ Math.random()*10000 + '_' + seed;
