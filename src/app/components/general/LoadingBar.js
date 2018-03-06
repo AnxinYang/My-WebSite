@@ -28,7 +28,7 @@ export default class LoadingBar extends Component{
     }
     componentDidUpdate(){
         if(this.state.animateRun){
-            var rotate = this.state.rotate+3600;
+            var rotate = this.state.rotate+1800;
             var newState = {
                 rotate: rotate,
                 firstLoop: false
