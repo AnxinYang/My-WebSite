@@ -6,12 +6,16 @@ const generalStyle = {
     containerMain: {'width': '100vw', 'height': '100vh'},
     headerContainer:{
         display: 'flex',
+        justifyContent: 'flex-end',
+        paddingRight: '32px',
+        marginTop: '32px',
+        minWidth: 'min-content'
     },
     headerButtons: {
         'normal': {
             container: {
-                maxWidth: '120px',
-                minWidth: '120px',
+                maxWidth: '128px',
+                minWidth: '128px',
                 textAlign: 'center',
                 transition: '0.3s',
                 color: 'black',

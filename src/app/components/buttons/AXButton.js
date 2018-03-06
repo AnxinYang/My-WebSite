@@ -27,6 +27,18 @@ export default class AXButton extends Component{
     componentWillMount(){
         this.setStyle(this.state);
     }
+    componentWillReceiveProps(newProps){
+        this.props = newProps;
+        let newState = {
+            status: this.props.status || 'normal',
+            toggleMode: this.props.toggleMode || false,
+            disabled: this.props.disabled || false,
+            text: this.props.text || 'Button',
+            isActivated: this.props.isActivated || false
+        };
+        this.setStyle(newState);
+        this.setState(newState);
+    }
     componentWillUpdate(){
 
     }

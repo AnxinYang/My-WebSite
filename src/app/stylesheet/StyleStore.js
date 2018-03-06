@@ -12,7 +12,7 @@ class StyleStore{
         window.styleStore = this;
     }
     getStyle(className){
-        return this.style[className];
+        return Object.assign({},this.style[className]);
     }
 }
 const ss = new StyleStore();
