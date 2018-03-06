@@ -42,12 +42,6 @@ export default class AXButton extends Component{
         this.setStyle(newState);
         this.setState(newState);
     }
-    componentWillUpdate(){
-
-    }
-    componentDidMount(){
-
-    }
 
     setStateWithDelay(newState, delay){
         var self = this;

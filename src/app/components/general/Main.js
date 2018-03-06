@@ -6,7 +6,8 @@ export default class Main extends Component{
     render() {
         return (
             <div>
-                {appManager.getComponent('Header')}
+                {appManager.getComponent('Header', {key:'Header'})}
+                {appManager.getComponent('LoadingBar', {key:'LoadingBar'})}
             </div>
         )
     }

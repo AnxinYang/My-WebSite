@@ -52,7 +52,7 @@ export default class Header extends Component{
         };
     }
 
-    componentDidUpdate(){
+    componentDidMount(){
         if(this.state.isInit === false){
             this.setState(Object.assign({}, this.state, {isInit: true}));
         }
