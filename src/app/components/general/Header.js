@@ -63,6 +63,7 @@ export default class Header extends Component{
         var componentList = this.content.componentList;
         var applyToAll = this.content.applyTOAll;
         var delay = 250;
+        var maxDelay = 1000;
         var delayMultiplier = 1;
 
         for(var name in componentList){
@@ -75,7 +76,8 @@ export default class Header extends Component{
             props.showDelay = 0;
 
             if(!this.state.isInit){
-                props.showDelay = delay*delayMultiplier++;
+                //props.showDelay = delay*delayMultiplier++;
+                props.showDelay = Math.floor(Math.random() * maxDelay) + 1;
             }
 
             var element = appManager.getComponent(props.blueprint, props);
