@@ -64,7 +64,7 @@ class AppManager{
             }
         }
     }
-    
+
     //DON'T USE UNLESS HAVE TO
     getId(){
         var seed = new Date();
