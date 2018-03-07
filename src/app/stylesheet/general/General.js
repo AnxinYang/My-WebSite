@@ -73,5 +73,5 @@ const generalStyle = {
         opacity: 1,
         padding: '20px'
     }
-}
+};
 export default generalStyle;

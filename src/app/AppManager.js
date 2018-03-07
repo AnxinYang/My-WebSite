@@ -65,6 +65,12 @@ class AppManager{
         }
     }
 
+    setStateWithDelay(self, newState, delay){
+        setTimeout(function () {
+            self.setState(newState);
+        },delay)
+    }
+
     //DON'T USE UNLESS HAVE TO
     getId(){
         var seed = new Date();

@@ -13,6 +13,12 @@ export default class LoadingBar extends Component{
             rotate: rotateStart
         };
         this.style = styleStore.getStyle('loadingBar');
+        appManager.listenEvent(this,'loadingBar',function (shouldRun) {
+            var newState = {
+                animateRun: shouldRun
+            };
+            newState = Object.assign({},this.state,newState);
+        })
     }
     componentDidMount(){
         if(this.state.animateRun){
@@ -22,31 +28,32 @@ export default class LoadingBar extends Component{
             newState = Object.assign({},this.state,newState);
             var style = Object.assign({},this.style);
             style.transform = 'rotate(' + newState.rotate + 'deg)';
-            this.style = style
-            this.setState(newState)
+            this.style = style;
+            this.setState(newState);
         }
     }
     componentDidUpdate(){
+        var rotate = this.state.rotate+1800;
+        var delay = this.state.firstLoop?0:5000;
+        var newState = {
+            rotate: rotate,
+            firstLoop: false
+        };
         if(this.state.animateRun){
-            var rotate = this.state.rotate+1800;
-            var newState = {
-                rotate: rotate,
-                firstLoop: false
-            };
-            var delay = this.state.firstLoop?0:5000;
             newState = Object.assign({},this.state,newState);
             var style = Object.assign({},this.style);
+            style.opacity = 1;
             style.transform = 'rotate(' + newState.rotate + 'deg)';
-            this.style = style
-            this.setStateWithDelay(newState,delay);
+        }else{
+            newState = Object.assign({},this.state,newState);
+            var style = Object.assign({},this.style);
+            style.opacity = 0;
+            style.transform = 'rotate(' + newState.rotate + 'deg)';
         }
+        this.style = style;
+        appManager.setStateWithDelay(this, newState, delay);
     }
-    setStateWithDelay(newState, delay){
-        var self = this;
-        setTimeout(function () {
-            self.setState(newState);
-        },delay)
-    }
+
     renderUnits(){
         var style = Object.assign({},this.style);
         style.transform = 'rotate(' + this.state.rotate + 'deg)';
