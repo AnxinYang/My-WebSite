@@ -12,25 +12,26 @@ export default class Header extends Component{
         };
 
         var self = this;
-        var setSelectItem = function () {
-            var selectedItemName = this.props.name;
-            var newState = {
-                selectedItem: selectedItemName
-            };
-            newState = Object.assign({}, self.state, newState);
-            //this.setStyle(newState);
-            self.setState(newState);
+        var setSelectItem = function (event) {
+            if(event === 'click') {
+                var selectedItemName = this.props.name;
+                var newState = {
+                    selectedItem: selectedItemName
+                };
+                newState = Object.assign({}, self.state, newState);
+                //this.setStyle(newState);
+                self.setState(newState);
+            }
         };
 
         this.content = {
-            applyTOAll:{
-                'blueprint': 'AXButton',
-                'toggleMode': true,
+            applyTOAll: {
+                'status':'normal',
+                'blueprint': 'Button',
                 'styleSet': styleStore.getStyle('headerButtons'),
-                'handlers':{
-                    'click': setSelectItem
-                }
-            },
+                'handleMouseEvent': setSelectItem
+            }
+            ,
             componentList: {
                 home: {
                     'text': 'Home',
@@ -54,6 +55,7 @@ export default class Header extends Component{
 
     componentDidMount(){
         this.state.isInit= true;
+        //setTimeout(function(){appManager.triggerEvent('loadingBar', {shouldRun: false})},100);
     }
 
     renderChildren(){
@@ -70,7 +72,7 @@ export default class Header extends Component{
 
             var props = Object.assign({},applyToAll, component, key);
             props.name = name;
-            props.isActivated = (name === this.state.selectedItem);
+            props.status = (name === this.state.selectedItem)?'activated':'normal';
             props.showDelay = 0;
 
             if(!this.state.isInit){

@@ -12,7 +12,7 @@ const generalStyle = {
         minWidth: 'min-content'
     },
     headerButtons: {
-        'normal': {
+        normal: {
             container: {
                 maxWidth: '128px',
                 minWidth: '128px',

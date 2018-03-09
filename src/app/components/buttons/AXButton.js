@@ -5,24 +5,23 @@ import React, {Component} from 'react';
 export default class AXButton extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            status: this.props.status || 'normal',
+        this.attr = {
+            status: props.status || 'normal',
             toggleMode: this.props.toggleMode || false,
             disabled: this.props.disabled || false,
             text: this.props.text || 'Button',
             isActivated: this.props.isActivated || false,
-            showDelay: this.props.showDelay || false
+            showDelay: this.props.showDelay || false,
+            styleSet: this.props.styleSet || { 'normal': {}}
+        };
+        this.state = {
+            status: this.attr.status || 'normal',
+            isActivated: this.attr.isActivated || false,
         };
 
-        this.id = this.props.name;
-        if(this.props.styleSet === undefined){
-            this.styleSet = {
-                'normal': {}
-            }
-        }else{
-            this.styleSet = this.props.styleSet;
-        }
-        this.style = Object.assign({},this.styleSet[this.state.status]);
+        this.id = this.attr.name || appManager.getId();
+
+        this.styleSet = Object.assign({},this.attr.styleSet[this.props.status]);
     }
 
     componentWillMount(){
@@ -101,7 +100,7 @@ export default class AXButton extends Component{
         }
 
         for(var key in newStyleSet){
-            this.style[key] = Object.assign({},this.style[key], newStyleSet[key]);
+            this.styleSet[key] = Object.assign({},this.style[key], newStyleSet[key]);
         }
     }
 
@@ -113,8 +112,8 @@ export default class AXButton extends Component{
                 onMouseEnter={()=>{this.handleMouseEvent('mouseEnter')}}
                 onMouseLeave={()=>{this.handleMouseEvent('mouseLeave')}}
                 onMouseOver={()=>{this.handleMouseEvent('mouseOver')}}
-                style = {this.style['innerText'] || {}}
-            >{this.state.text}</span>
+                style = {this.styleSet['innerText'] || {}}
+            >{this.props.text}</span>
         )
     }
 
@@ -122,7 +121,7 @@ export default class AXButton extends Component{
     render(){
         return (
             <div id={this.id}
-                 style={this.style['container'] || {}}>
+                 style={this.styleSet['container'] || {}}>
                 {this.innerRender()}
             </div>
         )

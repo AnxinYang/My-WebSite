@@ -4,7 +4,9 @@
 import Main from './components/general/Main';
 import Header from './components/general/Header';
 import LoadingBar from './components/general/LoadingBar';
-import AXButton from './components/buttons/AXButton';
+import Button from './components/buttons/Button';
+
+import AXLineChart from './components/charts/AXLineChart'
 import React from 'react';
 class AppManager{
     constructor(){
@@ -14,8 +16,9 @@ class AppManager{
         this.componentBlueprint = {
             'Main': Main,
             'Header': Header,
-            'AXButton': AXButton,
-            'LoadingBar': LoadingBar
+            'Button': Button,
+            'LoadingBar': LoadingBar,
+            'AXLineChart': AXLineChart
         };
     }
     init(callback){
@@ -48,7 +51,7 @@ class AppManager{
             response: response
         };
 
-        event[listener] = newListener;
+        event[listener.id] = newListener;
     }
 
     triggerEvent(eventName, options){
@@ -74,7 +77,9 @@ class AppManager{
     //DON'T USE UNLESS HAVE TO
     getId(){
         var seed = new Date();
+        seed = seed.getTime()
         var id = 'id_'+ Math.random()*10000 + '_' + seed;
+        return id;
     }
 }
 const am = new AppManager();

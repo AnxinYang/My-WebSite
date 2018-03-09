@@ -7,30 +7,32 @@ const rotateStart = 0;
 export default class LoadingBar extends Component{
     constructor(props){
         super(props);
+        this.id = appManager.getId();
         this.state={
             firstLoop: true,
             animateRun: true,
             rotate: rotateStart
         };
         this.style = styleStore.getStyle('loadingBar');
-        appManager.listenEvent(this,'loadingBar',function (shouldRun) {
+        var self = this;
+        appManager.listenEvent(this,'loadingBar',function (options) {
             var newState = {
-                animateRun: shouldRun
+                animateRun: options.shouldRun
             };
-            newState = Object.assign({},this.state,newState);
+            newState = Object.assign({},self.state,newState);
+            self.setState(newState);
         })
     }
-    componentDidMount(){
-        if(this.state.animateRun){
-            var newState = {
-                rotate: rotateStart
-            };
-            newState = Object.assign({},this.state,newState);
-            var style = Object.assign({},this.style);
-            style.transform = 'rotate(' + newState.rotate + 'deg)';
-            this.style = style;
-            this.setState(newState);
-        }
+    componentDidMount() {
+        var newState = {
+            rotate: rotateStart
+        };
+        newState = Object.assign({}, this.state, newState);
+        var style = Object.assign({}, this.style);
+        style.transform = 'rotate(' + newState.rotate + 'deg)';
+        this.style = style;
+        this.setState(newState);
+
     }
     componentDidUpdate(){
         var rotate = this.state.rotate+1800;
