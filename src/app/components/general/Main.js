@@ -38,6 +38,7 @@ export default class Main extends Component{
 
         this.lineData = lineData;
         this.setStateWithDelay({live:true},3000);
+        appManager.setValue('dashboardData', lineData);
     }
 
     setStateWithDelay(newState, delay){
@@ -50,7 +51,7 @@ export default class Main extends Component{
         return (
             <div>
                 {appManager.getComponent('Header', {key:'Header'})}
-                {appManager.getComponent('AXLineChart', Object.assign({},{key:'AXLineChart'}, {data:this.lineData}))}
+                {appManager.getComponent('AXLineChart', Object.assign({},{key:'AXLineChart', willFetchExternal: true}))}
             </div>
         )
     }
